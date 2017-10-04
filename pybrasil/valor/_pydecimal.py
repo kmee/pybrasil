@@ -153,7 +153,6 @@ __libmpdec_version__ = "2.4.1" # compatible libmpdec version
 import math as _math
 import numbers as _numbers
 import sys
-from ._pydecimal import Decimal as DecimalOriginal
 
 try:
     from collections import namedtuple as _namedtuple
@@ -590,7 +589,7 @@ class Decimal(object):
         # From a string
         # REs insist on real strings, so we can too.
         if isinstance(value, str):
-            m = _parser(value.strip() or '0')
+            m = _parser(value.strip())
             if m is None:
                 if context is None:
                     context = getcontext()
@@ -637,7 +636,7 @@ class Decimal(object):
             return self
 
         # From another decimal
-        if isinstance(value, (Decimal, DecimalOriginal)):
+        if isinstance(value, Decimal):
             self._exp  = value._exp
             self._sign = value._sign
             self._int  = value._int
@@ -709,12 +708,6 @@ class Decimal(object):
             self._int  = value._int
             self._is_special  = value._is_special
             return self
-
-        try:
-            value = str(value)
-            return Decimal(value)
-        except:
-            pass
 
         raise TypeError("Cannot convert %r to Decimal" % value)
 
@@ -1075,11 +1068,12 @@ class Decimal(object):
         return sign + intpart + fracpart + exp
 
     def to_eng_string(self, context=None):
-        """Convert to a string, using engineering notation if an exponent is needed.
+        """Convert to engineering-type string.
 
-        Engineering notation has an exponent which is a multiple of 3.  This
-        can leave up to 3 digits to the left of the decimal place and may
-        require the addition of either one or two trailing zeros.
+        Engineering notation has an exponent which is a multiple of 3, so there
+        are up to 3 digits left of the decimal place.
+
+        Same rules for when in exponential and when as a value as in __str__.
         """
         return self.__str__(eng=True, context=context)
 
@@ -4113,7 +4107,7 @@ class Context(object):
         >>> context.create_decimal_from_float(3.1415926535897932)
         Traceback (most recent call last):
             ...
-        decimal.Inexact: None
+        decimal.Inexact
 
         """
         d = Decimal.from_float(f)       # An exact conversion
@@ -5508,29 +5502,9 @@ class Context(object):
             return r
 
     def to_eng_string(self, a):
-        """Convert to a string, using engineering notation if an exponent is needed.
-
-        Engineering notation has an exponent which is a multiple of 3.  This
-        can leave up to 3 digits to the left of the decimal place and may
-        require the addition of either one or two trailing zeros.
+        """Converts a number to a string, using scientific notation.
 
         The operation is not affected by the context.
-
-        >>> ExtendedContext.to_eng_string(Decimal('123E+1'))
-        '1.23E+3'
-        >>> ExtendedContext.to_eng_string(Decimal('123E+3'))
-        '123E+3'
-        >>> ExtendedContext.to_eng_string(Decimal('123E-10'))
-        '12.3E-9'
-        >>> ExtendedContext.to_eng_string(Decimal('-123E-12'))
-        '-123E-12'
-        >>> ExtendedContext.to_eng_string(Decimal('7E-7'))
-        '700E-9'
-        >>> ExtendedContext.to_eng_string(Decimal('7E+1'))
-        '70'
-        >>> ExtendedContext.to_eng_string(Decimal('0E+1'))
-        '0.00E+3'
-
         """
         a = _convert_other(a, raiseit=True)
         return a.to_eng_string(context=self)
@@ -6006,11 +5980,7 @@ def _log10_lb(c, correction = {
 
 ##### Helper Functions ####################################################
 
-
-#
-# Alterado para aceitar float por padrão
-#
-def _convert_other(other, raiseit=False, allow_float=True):
+def _convert_other(other, raiseit=False, allow_float=False):
     """Convert other to Decimal.
 
     Verifies that it's ok to use in an implicit construction.
@@ -6020,13 +5990,10 @@ def _convert_other(other, raiseit=False, allow_float=True):
     """
     if isinstance(other, Decimal):
         return other
-    if isinstance(other, (int, DecimalOriginal)):
+    if isinstance(other, int):
         return Decimal(other)
     if allow_float and isinstance(other, float):
         return Decimal.from_float(other)
-    if isinstance(other, bool):
-        return Decimal(other)
-   
 
     if raiseit:
         raise TypeError("Unable to convert %s to Decimal" % other)
@@ -6386,13 +6353,6 @@ def _format_number(is_negative, intpart, fracpart, exp, spec):
     intpart = _insert_thousands_sep(intpart, spec, min_width)
 
     return _format_align(sign, intpart+fracpart, spec)
-
-
-def json_decimal_default(obj):
-    if isinstance(obj, DecimalOriginal) or isinstance(obj, Decimal):
-        return float(str(obj))
-
-    raise TypeError(repr(o) + " is not JSON serializable")
 
 
 ##### Useful Constants (internal use only) ################################
