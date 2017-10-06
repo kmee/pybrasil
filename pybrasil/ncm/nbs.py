@@ -43,6 +43,8 @@ from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 import os
 import sys
+if sys.version >= '3':
+    unicode = str
 from decimal import Decimal as D
 
 
@@ -77,7 +79,7 @@ def _monta_dicionario():
     arquivo.readline()
 
     for linha in arquivo:
-        linha = linha.decode('utf-8').replace('\n', '').replace('\r', '')
+        linha = linha.replace('\n', '').replace('\r', '')
         campos = linha.split('|')
         e = NBS(codigo=campos[0], descricao=campos[1], al_ibpt_nacional=D(campos[2] or '0'), al_ibpt_internacional=D(campos[3] or '0'))
 

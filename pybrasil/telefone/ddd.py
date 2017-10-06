@@ -216,7 +216,7 @@ DATAS_NONO_DIGITO = {
 DDDS_NONO_DIGITO = []
 
 
-HOJE = date.today().strftime(b'%Y-%m-%d')
+HOJE = date.today().strftime('%Y-%m-%d')
 
 
 for data in DATAS_NONO_DIGITO:

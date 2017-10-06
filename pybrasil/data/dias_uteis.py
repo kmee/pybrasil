@@ -48,6 +48,10 @@ from .fuso_horario import data_hora_horario_brasilia, hoje
 from .parse_datetime import parse_datetime
 from ..feriado import data_eh_feriado_bancario, data_eh_feriado
 
+import sys
+if sys.version >= '3':
+    unicode = str
+
 DIAS_UTEIS = {}
 
 

@@ -42,6 +42,10 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
+import sys
+if sys.version >= '3':
+    unicode = str
+
 
 from ..base import modulo11
 from .cnpj_cpf import eh_tudo_igual

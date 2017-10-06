@@ -42,6 +42,10 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
+import sys
+if sys.version >= '3':
+    unicode = str
+
 #from dateutil.parser import parse as parse_datetime_original
 from dateutil.parser import parser
 from datetime import datetime as datetime_sem_fuso, date, time
@@ -49,6 +53,7 @@ from pytz import (datetime, timezone, tzinfo, UTC)
 from .parserinfo import ParserInfoBrasil
 from time import strftime
 from dateutil.relativedelta import relativedelta
+
 
 
 #AVALIAR_DATA_BRASIL = ParserInfoBrasil()

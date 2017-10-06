@@ -42,13 +42,12 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-
+import unidecode
 import unicodedata
 
 
 def tira_acentos(texto):
-    texto = texto.replace('°', 'o')
-    return unicodedata.normalize(b'NFKD', texto).encode('ascii', 'ignore').encode('utf-8')
+    return unidecode.unidecode(texto)
 
 
 def somente_ascii(funcao):

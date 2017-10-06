@@ -62,7 +62,7 @@ def _monta_dicionario_segmento(segmento):
     arquivo.readline()
 
     for linha in arquivo:
-        linha = linha.decode('utf-8').replace('\n', '').replace('\r', '')
+        linha = linha.replace('\n', '').replace('\r', '')
         codigo, nome, estado = linha.split('|')
         codigo = codigo.strip()
         nome = nome.strip().upper()

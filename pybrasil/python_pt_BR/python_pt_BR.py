@@ -44,6 +44,10 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
+import sys
+if sys.version >= '3':
+    unicode = str
+
 from pyparsing import Word, quotedString, pythonStyleComment, QuotedString, \
     alphanums, alphas8bit, Combine, Literal, unicodeString
 from pybrasil.base import tira_acentos

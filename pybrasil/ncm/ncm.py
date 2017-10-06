@@ -43,6 +43,8 @@ from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 import os
 import sys
+if sys.version >= '3':
+    unicode = str
 from decimal import Decimal as D
 
 
@@ -87,7 +89,7 @@ def _monta_dicionario():
     arquivo.readline()
 
     for linha in arquivo:
-        linha = linha.decode('utf-8').replace('\n', '').replace('\r', '')
+        linha = linha.replace('\n', '').replace('\r', '')
         campos = linha.split('|')
         e = NCM(codigo=campos[0], ex=campos[1], descricao=campos[2], al_ipi=D(campos[3] or '0'), cst_ipi_entrada=campos[4], cst_ipi_saida=campos[5], cst_pis_cofins_entrada=campos[6], cst_pis_cofins_saida=campos[7], codigo_justificativa_enquadramento_pis_cofins=campos[8], al_pis=D(campos[9] or '0'), al_cofins=D(campos[10] or '0'), unidade=campos[11], al_ibpt_nacional=D(campos[12] or '0'), al_ibpt_internacional=D(campos[13] or '0'))
 

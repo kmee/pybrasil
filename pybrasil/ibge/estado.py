@@ -43,7 +43,8 @@ from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 import os
 import sys
-
+if sys.version >= '3':
+    unicode = str
 
 CURDIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -82,7 +83,7 @@ def _monta_dicionario_ibge():
     arquivo.readline()
 
     for linha in arquivo:
-        linha = linha.decode('utf-8').replace('\n', '').replace('\r', '')
+        linha = linha.replace('\n', '').replace('\r', '')
         campos = linha.split('|')
         e = Estado(sigla=campos[0], nome=campos[1], codigo_ibge=campos[2], fuso_horario=campos[3], codigo_geoip=campos[4])
 

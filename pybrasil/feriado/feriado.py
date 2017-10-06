@@ -41,6 +41,11 @@
 
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
+
+import sys
+if sys.version >= '3':
+    unicode = str
+
 import os
 import sys
 from ..data import hoje, data_hora_horario_brasilia, parse_datetime
@@ -163,7 +168,7 @@ def _monta_lista_feriados():
     arquivo.readline()
 
     for linha in arquivo:
-        linha = linha.decode('utf-8').replace('\n', '').replace('\r', '')
+        linha = linha.replace('\n', '').replace('\r', '')
         campos = linha.split('|')
         nome, tipo, abrangencia, estado, municipio_ibge, municipio_nome, quando, dia, dia_da_semana, mes, ano, dias_de_diferenca, ajuste = campos
 
