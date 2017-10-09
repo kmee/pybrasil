@@ -49,7 +49,7 @@ MAPA_DIGITOS = {
 }
 
 
-def modulo11(texto='', pesos=range(2, 10), resto=False, mapa_digitos=MAPA_DIGITOS):
+def modulo11(texto='', pesos=list(range(2, 10)), resto=False, mapa_digitos=MAPA_DIGITOS):
     '''
     '''
     peso = 0
