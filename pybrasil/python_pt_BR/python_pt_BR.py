@@ -44,10 +44,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-import sys
-if sys.version >= '3':
-    unicode = str
-
 from pyparsing import Word, quotedString, pythonStyleComment, QuotedString, \
     alphanums, alphas8bit, Combine, Literal, unicodeString
 from pybrasil.base import tira_acentos
@@ -318,14 +314,14 @@ def python_pt_BR(texto, dicionario={}):
     global PALAVRAS_BRASIL
     PALAVRAS_BRASIL.update(dicionario)
 
-    if type(texto) != unicode:
-        texto = unicode(texto)
+    if type(texto) != str:
+        texto = str(texto)
 
     return python_brasil.transformString(texto)
 
 
 if __name__ == '__main__':
-    texto = u'''# -*- coding: utf-8 -*-
+    texto = '''# -*- coding: utf-8 -*-
 #
 # Este é um exemplo de código Python escrito em pt_BR
 #

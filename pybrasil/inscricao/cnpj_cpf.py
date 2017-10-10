@@ -47,13 +47,13 @@ from ..base import modulo11
 
 
 def limpa_formatacao(cnpj_cpf):
-    u'''Limpa os caracteres de formatação
+    '''Limpa os caracteres de formatação
     '''
     return cnpj_cpf.replace('.', '').replace('-', '').replace('/', '').replace(' ', '').replace('(', '').replace(')', '')
 
 
 def eh_tudo_igual(valor):
-    u'''Verifica que todos os algarismos no CPF ou CNPJ não sejam iguais
+    '''Verifica que todos os algarismos no CPF ou CNPJ não sejam iguais
     '''
     tudo_igual = True
 
@@ -67,7 +67,7 @@ def eh_tudo_igual(valor):
 
 
 def valida_cpf(cpf):
-    u'''Verifica que o CPF seja válido de acordo com os dígitos verificadores
+    '''Verifica que o CPF seja válido de acordo com os dígitos verificadores
     '''
     cpf = limpa_formatacao(cpf)
 
@@ -82,15 +82,15 @@ def valida_cpf(cpf):
 
     digito = cpf[-2:]
 
-    d1 = modulo11(cpf[:9], pesos=range(2, 11))
-    d2 = modulo11(cpf[:10], pesos=range(2, 12))
+    d1 = modulo11(cpf[:9], pesos=list(range(2, 11)))
+    d2 = modulo11(cpf[:10], pesos=list(range(2, 12)))
     digitocalc = d1 + d2
 
     return digito == digitocalc
 
 
 def valida_cnpj(cnpj):
-    u'''Verifica que o CNPJ seja válido de acordo com os dígitos verificadores
+    '''Verifica que o CNPJ seja válido de acordo com os dígitos verificadores
     '''
     cnpj = limpa_formatacao(cnpj)
 

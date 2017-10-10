@@ -45,9 +45,9 @@ Números por extenso, cardinais, ordinais e cardinais com unidades de medida
 Compatível com as versões 2 e 3 do Python
 '''
 
-from __future__ import division, print_function, unicode_literals
 
-from decimal import Decimal as D
+
+from .decimal import Decimal as D
 
 
 NOMBROVORTO = {

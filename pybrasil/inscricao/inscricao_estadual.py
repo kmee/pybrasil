@@ -44,9 +44,6 @@ from __future__ import (division, print_function, unicode_literals,
 
 import sys
 
-if sys.version >= '3':
-    unicode = str
-
 import re
 
 #
@@ -124,7 +121,7 @@ class ValidaIE(object):
             elif dv == 11:
                 dv = self.dv_acima_11
 
-        return unicode(dv)
+        return str(dv)
 
     def pre_valida_formata(self, ie):
         ie = LIMPA.sub('', ie)
@@ -201,7 +198,7 @@ class ValidaIEAC(ValidaIE):
             [4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2],
             [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
         ]
-        self.posicoes = [range(11), range(12)]
+        self.posicoes = [list(range(11)), list(range(12))]
         self.formato = [2, '.', 3, '.', 3, '/', 3, '-', 2]
 
 
@@ -242,7 +239,7 @@ class ValidaIEAL(ValidaIE):
         self.expressao = r'^24[0-9]{7}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
         self.resto = True
 
@@ -280,7 +277,7 @@ class ValidaIEAM(ValidaIE):
         self.expressao = r'^[0-9]{8}$|^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
         self.resto = True
         self.tamanho_minimo = 9
@@ -325,7 +322,7 @@ class ValidaIEAP(ValidaIE):
         self.expressao = r'^03[0-9]{7}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
     def digito(self, ie, pesos, posicoes):
@@ -411,7 +408,7 @@ class ValidaIEBA(ValidaIE):
             if dv > 9:
                 dv = 0
 
-        return unicode(dv)
+        return str(dv)
 
 
 class ValidaIECE(ValidaIE):
@@ -441,7 +438,7 @@ class ValidaIECE(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 6, '-', 1]
         self.tamanho_minimo = 9
 
@@ -474,7 +471,7 @@ class ValidaIEDF(ValidaIE):
             [4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2],
             [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2],
         ]
-        self.posicoes = [range(11), range(12)]
+        self.posicoes = [list(range(11)), list(range(12))]
         self.formato = [2, '-', 3, '.', 3, '/', 3, '-', 2]
 
 
@@ -499,7 +496,7 @@ class ValidaIEES(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [3, '.', 3, '.', 2, '-', 1]
 
 
@@ -530,7 +527,7 @@ class ValidaIEGO(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
     def digito(self, ie, pesos, posicoes):
@@ -566,7 +563,7 @@ class ValidaIEMA(ValidaIE):
         self.expressao = r'^12[0-9]{7}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -601,7 +598,7 @@ class ValidaIEMG(ValidaIE):
             [1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2],
             [3, 2, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2],
         ]
-        self.posicoes = [range(11), range(12)]
+        self.posicoes = [list(range(11)), list(range(12))]
         self.formato = [3, '.', 3, '.', 3, '/', 2, '-', 2]
         self.produtor_rural = re.compile('^PR[0-9]{4,8}$')
 
@@ -612,7 +609,7 @@ class ValidaIEMG(ValidaIE):
             peso = pesos[i]
             posicao = posicoes[i]
             numero = int(ie[posicao])
-            soma_texto += unicode(numero * peso)
+            soma_texto += str(numero * peso)
 
         soma = 0
         for c in soma_texto:
@@ -632,7 +629,7 @@ class ValidaIEMG(ValidaIE):
         if dv == 10:
             dv = 0
 
-        return unicode(dv)
+        return str(dv)
 
     def valida(self, ie):
         ie_a_validar = self.pre_valida_formata(ie)
@@ -677,7 +674,7 @@ class ValidaIEMS(ValidaIE):
         self.expressao = r'^28[0-9]{7}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -718,7 +715,7 @@ class ValidaIEMT(ValidaIE):
         self.expressao = r'^[0-9]{11}$'
         self.dv = [10]
         self.pesos = [[3, 2, 9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(10)]
+        self.posicoes = [list(range(10))]
         self.formato = [2, '.', 2, '.', 3, '.', 3, '-', 1]
         self.tamanho_minimo = 11
 
@@ -746,7 +743,7 @@ class ValidaIEPA(ValidaIE):
         self.expressao = r'^15[0-9]{7}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -773,7 +770,7 @@ class ValidaIEPB(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -860,14 +857,14 @@ class ValidaIEPE(ValidaIE):
                 [8, 7, 6, 5, 4, 3, 2],
                 [9, 8, 7, 6, 5, 4, 3, 2]
             ]
-            self.posicoes = [range(7), range(8)]
+            self.posicoes = [list(range(7)), list(range(8))]
             self.formato = [2, '.', 3, '.', 2, '-', 2]
             self.dv_acima_11 = 0
 
         elif len(ie_a_validar) == 14:
             self.dv = [13]
             self.pesos = [[5, 4, 3, 2, 1, 9, 8, 7, 6, 5, 4, 3, 2]]
-            self.posicoes = [range(13)]
+            self.posicoes = [list(range(13))]
             self.formato = [2, '.', 1, '.', 3, '.', 7, '-', 1]
             self.dv_acima_11 = 1
 
@@ -884,9 +881,9 @@ class ValidaIEPE(ValidaIE):
         #
         if len(ie_a_formatar) == 14:
             ie_a_formatar = ie_a_formatar[6:13]
-            dv1 = self.digito(ie_a_formatar, [8, 7, 6, 5, 4, 3, 2], range(8))
+            dv1 = self.digito(ie_a_formatar, [8, 7, 6, 5, 4, 3, 2], list(range(8)))
             ie_a_formatar += dv1
-            dv2 = self.digito(ie_a_formatar, [9, 8, 7, 6, 5, 4, 3, 2], range(9))
+            dv2 = self.digito(ie_a_formatar, [9, 8, 7, 6, 5, 4, 3, 2], list(range(9)))
             ie_a_formatar += dv2
 
         return super(ValidaIEPE, self).formata(ie_a_formatar)
@@ -916,7 +913,7 @@ class ValidaIEPI(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -947,7 +944,7 @@ class ValidaIEPR(ValidaIE):
             [3, 2, 7, 6, 5, 4, 3, 2],
             [4, 3, 2, 7, 6, 5, 4, 3, 2],
         ]
-        self.posicoes = [range(8), range(9)]
+        self.posicoes = [list(range(8)), list(range(9))]
         self.formato = [3, '.', 5, '-', 2]
 
 
@@ -975,7 +972,7 @@ class ValidaIERJ(ValidaIE):
         self.expressao = r'^[0-9]{8}$'
         self.dv = [7]
         self.pesos = [[2, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(7)]
+        self.posicoes = [list(range(7))]
         self.formato = [2, '.', 3, '.', 2, '-', 1]
 
 
@@ -1019,13 +1016,13 @@ class ValidaIERN(ValidaIE):
         if len(ie_a_validar) == 9:
             self.dv = [8]
             self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-            self.posicoes = [range(8)]
+            self.posicoes = [list(range(8))]
             self.formato = [2, '.', 3, '.', 3, '-', 1]
 
         else:
             self.dv = [9]
             self.pesos = [[10, 9, 8, 7, 6, 5, 4, 3, 2]]
-            self.posicoes = [range(9)]
+            self.posicoes = [list(range(9))]
             self.formato = [3, '.', 3, '.', 3, '-', 1]
 
         return super(ValidaIERN, self).valida(ie)
@@ -1068,7 +1065,7 @@ class ValidaIERO(ValidaIE):
         self.expressao = r'^[0-9]{9}$|^[0-9]{14}$'
         self.dv = [13]
         self.pesos = [[6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(13)]
+        self.posicoes = [list(range(13))]
         self.formato = [1, '.', 3, '.', 3, '.', 3, '.', 3, '-', 1]
         self.tamanho_minimo = 14
 
@@ -1121,8 +1118,8 @@ class ValidaIERR(ValidaIE):
         super(ValidaIERR, self).__init__(**kwargs)
         self.expressao = r'^24[0-9]{7}$'
         self.dv = [8]
-        self.pesos = [range(1, 9)]
-        self.posicoes = [range(8)]
+        self.pesos = [list(range(1, 9))]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
     def modulo(self, ie, pesos, posicoes):
@@ -1131,7 +1128,7 @@ class ValidaIERR(ValidaIE):
 
     def digito(self, ie, pesos, posicoes):
         dv = self.modulo(ie, pesos, posicoes)
-        return unicode(dv)
+        return str(dv)
 
 
 class ValidaIERS(ValidaIE):
@@ -1155,7 +1152,7 @@ class ValidaIERS(ValidaIE):
         self.expressao = r'^[0-9]{10}$'
         self.dv = [9]
         self.pesos = [[2, 9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(9)]
+        self.posicoes = [list(range(9))]
         self.formato = [3, '/', 3, '.', 3, '-', 1]
         self.tamanho_minimo = 10
 
@@ -1184,7 +1181,7 @@ class ValidaIESC(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [3, '.', 3, '.', 3]
 
 
@@ -1211,7 +1208,7 @@ class ValidaIESE(ValidaIE):
         self.expressao = r'^[0-9]{9}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 3, '.', 3, '-', 1]
 
 
@@ -1254,13 +1251,13 @@ class ValidaIESP(ValidaIE):
                 [1, 3, 4, 5, 6, 7, 8, 10],
                 [3, 2, 10, 9, 8, 7, 6, 5, 4, 3, 2]
             ]
-            self.posicoes = [range(8), range(11)]
+            self.posicoes = [list(range(8)), list(range(11))]
             self.formato = [3, '.', 3, '.', 3, '.', 3]
 
         else:
             self.dv = [9]
             self.pesos = [[1, 3, 4, 5, 6, 7, 8, 10]]
-            self.posicoes = [range(1, 9)]
+            self.posicoes = [list(range(1, 9))]
             self.formato = [1, '-', 3, '.', 3, '.', 3, '/', 3]
 
         return super(ValidaIESP, self).valida(ie)
@@ -1399,7 +1396,7 @@ class ValidaIESUFRAMA(ValidaIE):
         self.expressao = r'^(1|2)[0-9]{4}(01|10|30)[0-9]{1}$|^(01|02|10|11|20|60)[0-9]{4}(01|10|30)[0-9]{1}$'
         self.dv = [8]
         self.pesos = [[9, 8, 7, 6, 5, 4, 3, 2]]
-        self.posicoes = [range(8)]
+        self.posicoes = [list(range(8))]
         self.formato = [2, '.', 4, '.', 2, '-', 1]
         self.resto = True
         self.tamanho_minimo = 9

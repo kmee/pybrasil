@@ -87,7 +87,7 @@ DIGITOS_ESTADOS = {
 
 
 def valida_titulo_eleitor(titulo_eleitor):
-    u'''Verifica que o título de eleitor seja válido
+    '''Verifica que o título de eleitor seja válido
     de acordo com os dígitos verificadores
     '''
     titulo_eleitor = LIMPA.sub('', titulo_eleitor)
@@ -113,7 +113,7 @@ def valida_titulo_eleitor(titulo_eleitor):
 
     digito = titulo_eleitor[-2:]
 
-    d1 = modulo11(titulo_eleitor[:8], pesos=range(2, 11), resto=True)
+    d1 = modulo11(titulo_eleitor[:8], pesos=list(range(2, 11)), resto=True)
 
     #
     # Tratamento especial do 1º dígito
@@ -132,7 +132,7 @@ def valida_titulo_eleitor(titulo_eleitor):
         else:
             d1 = str(11 - int(d1))
 
-    d2 = modulo11(titulo_eleitor[8:11], pesos=range(2, 11))
+    d2 = modulo11(titulo_eleitor[8:11], pesos=list(range(2, 11)))
 
     print(d1, d2)
     digitocalc = d1 + d2

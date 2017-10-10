@@ -3970,8 +3970,8 @@ class Context(object):
 
     # Support for pickling, copy, and deepcopy
     def __reduce__(self):
-        flags = [sig for sig, v in self.flags.items() if v]
-        traps = [sig for sig, v in self.traps.items() if v]
+        flags = [sig for sig, v in list(self.flags.items()) if v]
+        traps = [sig for sig, v in list(self.traps.items()) if v]
         return (self.__class__,
                 (self.prec, self.rounding, self.Emin, self.Emax,
                  self.capitals, self.clamp, flags, traps))
@@ -3983,9 +3983,9 @@ class Context(object):
                  'Emin=%(Emin)d, Emax=%(Emax)d, capitals=%(capitals)d, '
                  'clamp=%(clamp)d'
                  % vars(self))
-        names = [f.__name__ for f, v in self.flags.items() if v]
+        names = [f.__name__ for f, v in list(self.flags.items()) if v]
         s.append('flags=[' + ', '.join(names) + ']')
-        names = [t.__name__ for t, v in self.traps.items() if v]
+        names = [t.__name__ for t, v in list(self.traps.items()) if v]
         s.append('traps=[' + ', '.join(names) + ']')
         return ', '.join(s) + ')'
 

@@ -120,13 +120,13 @@ def data_por_extenso(data=hoje(), numeros_por_extenso=False, legales=False):
             texto_data += ' de ' + mes_por_extenso(data)
             texto_data += ' de ' + numero_por_extenso(data.year)
     else:
-        texto_data = unicode(data.day)
+        texto_data = str(data.day)
 
         if data.day == 1:
             texto_data += 'º'
 
         texto_data += ' de ' + mes_por_extenso(data)
-        texto_data += ' de ' + unicode(data.year)
+        texto_data += ' de ' + str(data.year)
 
     return texto_data
 

@@ -84,7 +84,7 @@ TIPO_CERTIDAO_CIVIL_CASAMENTO_RELIGIOSO = '3'
 
 
 def valida_certidao_civil(certidao, tipo_valido=''):
-    u'''Verifica que a certidão seja válida
+    '''Verifica que a certidão seja válida
     de acordo com os dígitos verificadores
     '''
     certidao = LIMPA.sub('', certidao)
@@ -122,7 +122,7 @@ def valida_certidao_civil(certidao, tipo_valido=''):
     if tipo_valido and tipo_certidao != tipo_valido:
         return False
 
-    pesos = range(9, -1, -1) + range(10, -1, -1) + range(10, 0, -1)
+    pesos = list(range(9, -1, -1)) + list(range(10, -1, -1)) + list(range(10, 0, -1))
     d1 = modulo11(certidao[:30], pesos=pesos, resto=True)
     d2 = modulo11(certidao[:31], pesos=pesos, resto=True)
 

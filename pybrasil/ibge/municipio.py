@@ -42,8 +42,6 @@ from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 import os
 import sys
-if sys.version >= '3':
-    unicode = str
 from ..base import tira_acentos
 from .pais import PAIS_BRASIL
 from .estado import ESTADO_SIGLA, Estado
@@ -70,7 +68,7 @@ class Municipio(object):
         self.cep = cep
 
     def __str__(self):
-        return unicode.encode(self.__unicode__(), 'utf-8')
+        return str.encode(self.__unicode__(), 'utf-8')
 
     def __unicode__(self):
         return self.nome + ' - ' + self.estado.sigla
@@ -105,7 +103,7 @@ def _monta_dicionario_ibge():
 def _monta_dicionario_siafi():
     dicionario = {}
 
-    for k, v in MUNICIPIO_IBGE.items():
+    for k, v in list(MUNICIPIO_IBGE.items()):
         if v.codigo_siafi:
             dicionario[v.codigo_siafi] = v
 
@@ -115,7 +113,7 @@ def _monta_dicionario_siafi():
 def _monta_dicionario_estado_nome():
     dicionario = {}
 
-    for k, v in MUNICIPIO_IBGE.items():
+    for k, v in list(MUNICIPIO_IBGE.items()):
         if not v.estado.sigla in dicionario:
             dicionario[v.estado.sigla] = {}
 
@@ -127,7 +125,7 @@ def _monta_dicionario_estado_nome():
 def _monta_dicionario_nome():
     dicionario = {}
 
-    for k, v in MUNICIPIO_IBGE.items():
+    for k, v in list(MUNICIPIO_IBGE.items()):
         if not tira_acentos(v.nome).upper() in dicionario:
             dicionario[tira_acentos(v.nome).upper()] = []
 

@@ -39,10 +39,8 @@
 # <http://www.gnu.org/licenses/>
 #
 
-from __future__ import division, print_function, unicode_literals, absolute_import
+
 import sys
-if sys.version >= '3':
-    unicode = str
 import os
 from ..base import tira_acentos
 
@@ -64,7 +62,7 @@ class Pais(object):
         self.iso_3166_numerico = iso_3166_numerico
 
     def __str__(self):
-        return unicode.encode(self.__unicode__(), 'utf-8')
+        return str.encode(self.__unicode__(), 'utf-8')
 
     def __unicode__(self):
         return self.nome
@@ -99,7 +97,7 @@ def _monta_dicionario_bacen():
 def _monta_dicionario_nome():
     dicionario = {}
 
-    for k, v in PAIS_BACEN.items():
+    for k, v in list(PAIS_BACEN.items()):
         dicionario[tira_acentos(v.nome).upper()] = v
 
     return dicionario
@@ -108,7 +106,7 @@ def _monta_dicionario_nome():
 def _monta_dicionario_iso_3166_2():
     dicionario = {}
 
-    for k, v in PAIS_BACEN.items():
+    for k, v in list(PAIS_BACEN.items()):
         dicionario[v.iso_3166_2] = v
 
     return dicionario
@@ -117,7 +115,7 @@ def _monta_dicionario_iso_3166_2():
 def _monta_dicionario_iso_3166_3():
     dicionario = {}
 
-    for k, v in PAIS_BACEN.items():
+    for k, v in list(PAIS_BACEN.items()):
         dicionario[v.iso_3166_3] = v
 
     return dicionario

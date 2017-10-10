@@ -42,10 +42,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-import sys
-if sys.version >= '3':
-    unicode = str
-
 #from dateutil.parser import parse as parse_datetime_original
 from dateutil.parser import parser
 from datetime import datetime as datetime_sem_fuso, date, time
@@ -79,10 +75,10 @@ def parse_datetime(timestr, parserinfo=ParserInfoBrasil(), **kwargs):
     if isinstance(timestr, (datetime.datetime, datetime_sem_fuso, date, time)):
         return timestr
 
-    if not isinstance(timestr, (str, unicode)):
+    if not isinstance(timestr, str):
         return None
 
-    if isinstance(timestr, (str, unicode)) and (timestr.strip() == '' or timestr.replace('0', '') == '') :
+    if isinstance(timestr, str) and (timestr.strip() == '' or timestr.replace('0', '') == '') :
         return None
 
     #

@@ -42,9 +42,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-import sys
-if sys.version >= '3':
-    unicode = str
 
 from ..base import modulo11
 from .cnpj_cpf import eh_tudo_igual
@@ -52,7 +49,7 @@ from .inscricao_estadual import LIMPA
 
 
 def valida_pis(pis):
-    u'''Verifica que o PIS seja válido
+    '''Verifica que o PIS seja válido
     de acordo com os dígitos verificadores
     '''
     pis = LIMPA.sub('', pis)
@@ -73,11 +70,11 @@ def valida_pis(pis):
 
     digito = pis[-1]
 
-    d1 = modulo11(pis[:-1], pesos=range(2, 10))
+    d1 = modulo11(pis[:-1], pesos=list(range(2, 10)))
 
     print(d1, 'digito')
 
-    return digito == unicode(d1)
+    return digito == str(d1)
 
 
 def formata_pis(pis):

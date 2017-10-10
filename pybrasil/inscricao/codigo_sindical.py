@@ -42,10 +42,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-import sys
-if sys.version >= '3':
-    unicode = str
-
 
 from ..base import modulo11
 from .cnpj_cpf import eh_tudo_igual
@@ -53,7 +49,7 @@ from .inscricao_estadual import LIMPA
 
 
 def valida_codigo_sindical(codigo_sindical):
-    u'''Verifica que o código sindical seja válido
+    '''Verifica que o código sindical seja válido
     de acordo com os dígitos verificadores
 
     XXX.YYY.ZZZ.SSSSS-S
@@ -76,7 +72,7 @@ def valida_codigo_sindical(codigo_sindical):
 
     d1 = modulo11(codigo_sindical[:-1])
 
-    return digito == unicode(d1)
+    return digito == str(d1)
 
 
 def formata_codigo_sindical(codigo_sindical):

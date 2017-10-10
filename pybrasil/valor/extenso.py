@@ -45,7 +45,7 @@ Números por extenso, cardinais, ordinais e cardinais com unidades de medida
 Compatível com as versões 2 e 3 do Python
 '''
 
-from __future__ import division, print_function, unicode_literals
+
 
 from pybrasil.valor.decimal import Decimal as D
 from fractions import Fraction as F

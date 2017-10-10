@@ -42,10 +42,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-import sys
-if sys.version >= '3':
-    unicode = str
-
 import os
 import sys
 from ..data import hoje, data_hora_horario_brasilia, parse_datetime
@@ -76,15 +72,15 @@ class Feriado(Local):
         self.data_referencia = hoje()
 
     def __str__(self):
-        return unicode.encode(self.__unicode__(), 'utf-8')
+        return str.encode(self.__unicode__(), 'utf-8')
 
     def __unicode__(self):
         txt = self.nome + ' - ' + self.data_feriado.strftime('%a, %d-%b-%Y').decode('utf-8')
 
         if self.abrangencia == 'E':
-            txt += ', somente em ' + unicode(self.estado)
+            txt += ', somente em ' + str(self.estado)
         elif self.abrangencia == 'M':
-            txt += ', somente em ' + unicode(self.municipio)
+            txt += ', somente em ' + str(self.municipio)
 
         return txt
 
@@ -238,14 +234,14 @@ def monta_dicionario_datas(data_referencia=hoje(), tipo=None, estado=None, munic
 
     dicionario = {}
 
-    for data, feriados in _monta_dicionario_datas(data_referencia).iteritems():
+    for data, feriados in _monta_dicionario_datas(data_referencia).items():
         for f in feriados:
             if tipo is not None:
                 if isinstance(tipo, (list, tuple)):
                     if f.tipo not in tipo:
                         continue
 
-                elif isinstance(tipo, (str, unicode)):
+                elif isinstance(tipo, str):
                     if f.tipo != tipo:
                         continue
 

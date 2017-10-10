@@ -43,8 +43,6 @@ from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 import os
 import sys
-if sys.version >= '3':
-    unicode = str
 from decimal import Decimal as D
 
 
@@ -59,7 +57,7 @@ class NBS(object):
         self.al_ibpt_internacional = al_ibpt_internacional
 
     def __str__(self):
-        return unicode.encode(self.__unicode__(), 'utf-8')
+        return str.encode(self.__unicode__(), 'utf-8')
 
     def __unicode__(self):
         return self.codigo + ' - ' + self.descricao
